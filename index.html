@@ -1,0 +1,1186 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FinForm Expert - Sous-traitance comptable francaise et formations</title>
+  <meta name="description" content="FinForm Expert est un cabinet de sous-traitance de dossiers comptables pour la comptabilite francaise, avec formations en comptabilite francaise et Pennylane.">
+  <meta property="og:title" content="FinForm Expert - Dossiers comptables francais et formations">
+  <meta property="og:description" content="Sous-traitance comptable pour la France, formation 5 jours en comptabilite francaise et formation 5 jours au logiciel Pennylane.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0f3f44">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="https://unpkg.com/three@0.165.0/build/three.min.js"></script>
+  <style>
+    :root {
+      --ink: #112225;
+      --muted: #607175;
+      --paper: #f6f3ed;
+      --paper-strong: #fffdf7;
+      --petrol: #0f3f44;
+      --teal: #20b8a5;
+      --mint: #d8f7e5;
+      --coral: #ff735c;
+      --gold: #eab846;
+      --line: rgba(17, 34, 37, .14);
+      --glass: rgba(255, 253, 247, .74);
+      --shadow: 0 24px 70px rgba(15, 63, 68, .16);
+      --radius: 8px;
+      --max: 1180px;
+      --font-display: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+      --font-body: "Inter", "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(120deg, rgba(32, 184, 165, .10), transparent 34%),
+        radial-gradient(circle at 84% 10%, rgba(234, 184, 70, .20), transparent 28%),
+        repeating-linear-gradient(90deg, rgba(17, 34, 37, .035) 0 1px, transparent 1px 96px),
+        var(--paper);
+      font-family: var(--font-body);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 3px solid rgba(255, 115, 92, .75); outline-offset: 4px; }
+
+    .progress {
+      position: fixed;
+      inset: 0 auto auto 0;
+      height: 3px;
+      width: 0;
+      z-index: 100;
+      background: linear-gradient(90deg, var(--coral), var(--teal));
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(246, 243, 237, .76);
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .nav.is-scrolled {
+      border-color: var(--line);
+      box-shadow: 0 12px 36px rgba(15, 63, 68, .08);
+    }
+
+    .nav-inner {
+      width: min(var(--max), calc(100% - 32px));
+      min-height: 74px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      color: var(--paper-strong);
+      background: conic-gradient(from 120deg, var(--teal), var(--petrol), var(--coral), var(--teal));
+      clip-path: polygon(25% 4%, 75% 4%, 100% 50%, 75% 96%, 25% 96%, 0 50%);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: #2d4a4f;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .nav-links a:hover { color: var(--petrol); }
+
+    .btn {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--ink);
+      background: var(--paper-strong);
+      font-weight: 800;
+      box-shadow: 0 8px 24px rgba(17, 34, 37, .08);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .btn-primary { color: white; border-color: transparent; background: linear-gradient(135deg, var(--petrol), #126b68 58%, var(--teal)); }
+    .btn-coral { color: #2d140f; border-color: rgba(255, 115, 92, .25); background: linear-gradient(135deg, #ffd8cf, var(--coral)); }
+    .icon { width: 18px; height: 18px; stroke-width: 2.2; }
+
+    .section {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 92px 0;
+      content-visibility: auto;
+      contain-intrinsic-size: 720px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 74px);
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr);
+      align-items: center;
+      gap: 48px;
+      padding: 38px 0 64px;
+    }
+
+    .hero h1, .section-title h2, .cta h2 {
+      font-family: var(--font-display);
+      letter-spacing: 0;
+      line-height: .96;
+      margin: 0;
+    }
+
+    .hero h1 {
+      max-width: 780px;
+      font-size: clamp(48px, 8vw, 112px);
+    }
+
+    .eyebrow {
+      width: max-content;
+      max-width: 100%;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      margin-bottom: 18px;
+      border: 1px solid rgba(15, 63, 68, .16);
+      border-radius: 999px;
+      background: rgba(255, 253, 247, .62);
+      color: var(--petrol);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .hero-copy {
+      max-width: 670px;
+      margin: 22px 0 28px;
+      color: #3d575b;
+      font-size: 19px;
+    }
+
+    .hero-actions, .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .trust-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 34px;
+      max-width: 650px;
+    }
+
+    .trust-item {
+      min-height: 82px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 253, 247, .68);
+    }
+
+    .trust-item strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 22px;
+      line-height: 1;
+      color: var(--petrol);
+    }
+
+    .trust-item span { color: var(--muted); font-size: 13px; font-weight: 700; }
+
+    .hero-visual {
+      position: relative;
+      min-height: 540px;
+      border: 1px solid rgba(15, 63, 68, .18);
+      border-radius: 8px;
+      overflow: hidden;
+      background:
+        linear-gradient(160deg, rgba(15, 63, 68, .92), rgba(16, 92, 87, .86)),
+        radial-gradient(circle at 20% 25%, rgba(255, 115, 92, .38), transparent 30%);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .dash {
+      position: absolute;
+      inset: auto 22px 22px 22px;
+      z-index: 1;
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 8px;
+      color: white;
+      background: rgba(255, 255, 255, .12);
+      backdrop-filter: blur(14px);
+    }
+
+    .dash-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; }
+    .dash h2 { margin: 0; font-family: var(--font-display); font-size: 28px; }
+    .status { display: inline-flex; align-items: center; gap: 8px; color: #d8f7e5; font-weight: 800; font-size: 13px; }
+    .pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 7px rgba(32, 184, 165, .18); }
+
+    .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .metric { padding: 14px; border-radius: 8px; background: rgba(255, 253, 247, .13); }
+    .metric b { display: block; font-family: var(--font-display); font-size: 24px; }
+    .metric span { color: rgba(255, 255, 255, .72); font-size: 12px; font-weight: 700; }
+
+    .section-title {
+      display: grid;
+      grid-template-columns: minmax(0, .82fr) minmax(280px, .55fr);
+      align-items: end;
+      gap: 30px;
+      margin-bottom: 34px;
+    }
+
+    .section-title h2 { font-size: clamp(34px, 5vw, 64px); }
+    .section-title p { margin: 0; color: var(--muted); font-size: 17px; }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .panel, .card, .service, .price, .faq-item, .testimonial {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--glass);
+      box-shadow: 0 12px 34px rgba(17, 34, 37, .07);
+    }
+
+    .panel { padding: 26px; }
+    .device {
+      min-height: 420px;
+      display: grid;
+      align-content: center;
+      gap: 14px;
+      background:
+        linear-gradient(135deg, rgba(216, 247, 229, .74), rgba(255, 253, 247, .76)),
+        linear-gradient(90deg, rgba(15, 63, 68, .08) 1px, transparent 1px),
+        linear-gradient(rgba(15, 63, 68, .08) 1px, transparent 1px);
+      background-size: auto, 34px 34px, 34px 34px;
+    }
+
+    .device-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 15px;
+      border-radius: 8px;
+      background: rgba(255, 253, 247, .84);
+      border: 1px solid rgba(15, 63, 68, .12);
+    }
+
+    .bar {
+      height: 10px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--petrol), var(--teal));
+    }
+
+    .checks {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checks li {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 14px;
+      border-radius: 8px;
+      background: rgba(255, 253, 247, .58);
+    }
+
+    .check-icon, .service-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      color: var(--petrol);
+      background: var(--mint);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      min-height: 315px;
+      padding: 22px;
+      transform-style: preserve-3d;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+
+    .card:hover { border-color: rgba(32, 184, 165, .45); }
+    .card h3, .service h3, .price h3, .testimonial h3 { margin: 14px 0 8px; font-family: var(--font-display); font-size: 26px; line-height: 1.08; }
+    .card p, .service p, .price p, .testimonial p { color: var(--muted); margin: 0; }
+    .tag { display: inline-flex; padding: 6px 9px; border-radius: 999px; color: var(--petrol); background: var(--mint); font-size: 12px; font-weight: 800; }
+    .card ul, .price ul { display: grid; gap: 9px; padding: 0; margin: 18px 0 0; list-style: none; color: #344d51; font-size: 14px; }
+    .card li::before, .price li::before { content: "\2713 "; color: var(--teal); font-weight: 900; }
+
+    .bento {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr .8fr;
+      gap: 16px;
+    }
+
+    .service { min-height: 210px; padding: 22px; }
+    .service.wide { grid-row: span 2; min-height: 436px; background: linear-gradient(145deg, rgba(15, 63, 68, .96), rgba(18, 107, 104, .9)); color: white; }
+    .service.wide p { color: rgba(255, 255, 255, .75); }
+    .service.wide .service-icon { color: #173437; background: var(--gold); }
+    .price-note { margin-top: 24px; padding: 16px; border-radius: 8px; background: rgba(255, 255, 255, .12); color: white; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+      padding: 24px;
+      min-height: 245px;
+      border-top: 4px solid var(--petrol);
+      background: rgba(255, 253, 247, .7);
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: "0" counter(step);
+      display: block;
+      margin-bottom: 28px;
+      color: var(--coral);
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 800;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .stat {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--petrol);
+      color: white;
+    }
+
+    .stat strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 44px;
+      line-height: 1;
+    }
+
+    .stat span { color: rgba(255, 255, 255, .72); font-weight: 700; }
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .testimonial { padding: 22px; }
+    .quote { font-size: 15px; color: #344d51; }
+    .person { margin-top: 18px; font-weight: 900; color: var(--petrol); }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .price {
+      padding: 24px;
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+    }
+
+    .price.featured {
+      background: linear-gradient(145deg, var(--paper-strong), var(--mint));
+      border-color: rgba(32, 184, 165, .46);
+      box-shadow: var(--shadow);
+    }
+
+    .amount {
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+      margin: 10px 0;
+      font-family: var(--font-display);
+      font-size: 42px;
+      font-weight: 800;
+    }
+
+    .amount small { color: var(--muted); font-family: var(--font-body); font-size: 13px; font-weight: 800; }
+
+    .faq {
+      display: grid;
+      gap: 10px;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .faq-item { overflow: hidden; }
+    .faq-item button {
+      width: 100%;
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 0 18px;
+      border: 0;
+      color: var(--ink);
+      background: transparent;
+      text-align: left;
+      font-weight: 900;
+    }
+
+    .faq-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .24s ease;
+    }
+
+    .faq-body p { margin: 0; padding: 0 18px 18px; color: var(--muted); }
+
+    .cta {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 70px auto 0;
+      padding: 44px;
+      border-radius: 8px;
+      color: white;
+      background:
+        linear-gradient(135deg, rgba(15, 63, 68, .97), rgba(20, 99, 92, .94)),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 1px, transparent 1px 80px);
+      display: grid;
+      grid-template-columns: minmax(0, .95fr) minmax(320px, .65fr);
+      gap: 30px;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    .cta h2 { font-size: clamp(34px, 5vw, 64px); }
+    .cta p { color: rgba(255, 255, 255, .76); font-size: 17px; }
+
+    .contact-form {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .1);
+    }
+
+    .field {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 8px;
+      padding: 12px;
+      color: white;
+      background: rgba(255, 255, 255, .1);
+    }
+
+    .field::placeholder { color: rgba(255, 255, 255, .62); }
+    textarea.field { min-height: 92px; resize: vertical; }
+
+    .whatsapp-widget {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 70;
+      display: grid;
+      justify-items: end;
+      gap: 12px;
+    }
+
+    .whatsapp-panel {
+      width: min(360px, calc(100vw - 32px));
+      border: 1px solid rgba(15, 63, 68, .16);
+      border-radius: 8px;
+      background: var(--paper-strong);
+      box-shadow: 0 24px 70px rgba(15, 63, 68, .22);
+      transform: translateY(14px) scale(.98);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s ease, transform .22s ease;
+      overflow: hidden;
+    }
+
+    .whatsapp-widget.is-open .whatsapp-panel {
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+    }
+
+    .chat-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px;
+      color: white;
+      background: linear-gradient(135deg, #0f3f44, #1cae78);
+    }
+
+    .chat-avatar {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .18);
+    }
+
+    .chat-head strong { display: block; line-height: 1.1; }
+    .chat-head span { display: block; color: rgba(255, 255, 255, .72); font-size: 12px; font-weight: 700; }
+    .chat-close { margin-left: auto; border: 0; color: white; background: transparent; }
+
+    .chat-body {
+      display: grid;
+      gap: 10px;
+      padding: 15px;
+    }
+
+    .chat-message {
+      width: fit-content;
+      max-width: 92%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: #243b40;
+      background: #edf7ef;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .lead-form {
+      display: grid;
+      gap: 9px;
+      margin-top: 4px;
+    }
+
+    .lead-form input,
+    .lead-form select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      color: var(--ink);
+      background: white;
+    }
+
+    .whatsapp-toggle {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 999px;
+      color: white;
+      background: linear-gradient(135deg, #23c063, #128c7e);
+      box-shadow: 0 14px 38px rgba(18, 140, 126, .34);
+      animation: chatPulse 2.4s ease-in-out infinite;
+    }
+
+    .whatsapp-toggle::before {
+      content: "";
+      position: absolute;
+      inset: -8px;
+      border-radius: inherit;
+      border: 1px solid rgba(35, 192, 99, .36);
+      animation: chatRing 2.4s ease-in-out infinite;
+    }
+
+    .lead-status {
+      min-height: 18px;
+      color: var(--petrol);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    @keyframes chatPulse {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    @keyframes chatRing {
+      0% { transform: scale(.88); opacity: .9; }
+      80%, 100% { transform: scale(1.25); opacity: 0; }
+    }
+
+    .footer {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 52px 0 32px;
+      display: grid;
+      grid-template-columns: 1.2fr repeat(3, minmax(0, .6fr));
+      gap: 24px;
+      color: #39555a;
+    }
+
+    .footer h3 { margin: 0 0 12px; color: var(--ink); font-family: var(--font-display); }
+    .footer a, .footer span { display: block; margin: 8px 0; color: #50686d; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    @media (max-width: 1024px) {
+      .nav-inner { flex-wrap: wrap; padding: 10px 0; }
+      .nav-links {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+        padding: 0 0 6px;
+        scrollbar-width: none;
+      }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .hero, .split, .section-title, .cta { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 430px; }
+      .bento, .cards, .pricing, .testimonials { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .service.wide { grid-row: auto; }
+      .stats, .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .footer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 700px) {
+      .nav-inner { min-height: 66px; width: min(100% - 24px, var(--max)); }
+      .brand span { font-size: 15px; }
+      .nav .btn { min-height: 40px; padding: 0 12px; font-size: 13px; }
+      .section { width: min(100% - 24px, var(--max)); padding: 64px 0; }
+      .hero { width: min(100% - 24px, var(--max)); min-height: auto; padding: 34px 0 46px; gap: 24px; }
+      .hero h1 { font-size: 48px; }
+      .hero-copy { font-size: 17px; }
+      .trust-row, .cards, .bento, .steps, .stats, .testimonials, .pricing, .footer { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 380px; }
+      .dash { inset: auto 12px 12px 12px; padding: 14px; }
+      .dash-grid { grid-template-columns: 1fr; }
+      .cta { width: min(100% - 24px, var(--max)); padding: 28px 18px; }
+      .hero-actions .btn, .cta-actions .btn { width: 100%; }
+      .whatsapp-widget { right: 12px; bottom: 12px; }
+      .whatsapp-toggle { width: 58px; height: 58px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .001ms !important;
+      }
+    }
+  </style>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "FinForm Expert",
+      "description": "Sous-traitance de dossiers comptables pour la comptabilite francaise, avec formations en comptabilite francaise et logiciel Pennylane.",
+      "areaServed": "France",
+      "knowsAbout": ["comptabilite francaise", "Pennylane", "formation comptable", "sous-traitance comptable", "gestion comptable"]
+    }
+  </script>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"></div>
+
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="FinForm Expert">
+        <span class="brand-mark">F</span>
+        <span>FinForm Expert</span>
+      </a>
+      <div class="nav-links">
+        <a href="#formations">Formations 5 jours</a>
+        <a href="#services">Sous-traitance</a>
+        <a href="#methode">Methode</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <a class="btn btn-primary" href="#contact"><i data-lucide="calendar-check" class="icon"></i>Diagnostic</a>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="reveal">
+        <div class="eyebrow"><i data-lucide="badge-check" class="icon"></i> Sous-traitance comptable France + formations</div>
+        <h1>Cabinet de sous-traitance pour vos dossiers comptables francais.</h1>
+        <p class="hero-copy">FinForm Expert traite vos dossiers de comptabilite francaise, renforce votre production et forme vos equipes a la comptabilite francaise comme a l'utilisation de Pennylane.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact"><i data-lucide="calendar-plus" class="icon"></i>Planifier un diagnostic</a>
+          <a class="btn" href="#formations"><i data-lucide="book-open-check" class="icon"></i>Voir les formations</a>
+        </div>
+        <div class="trust-row" aria-label="Signaux de confiance">
+          <div class="trust-item"><strong>2 x 5j</strong><span>formations intensives</span></div>
+          <div class="trust-item"><strong>48h</strong><span>pour cadrer vos dossiers</span></div>
+          <div class="trust-item"><strong>France</strong><span>comptabilite et fiscalite</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" aria-label="Tableau de bord FinForm Expert">
+        <canvas id="hero-canvas"></canvas>
+        <div class="dash">
+          <div class="dash-top">
+            <h2>Dossiers clients</h2>
+            <span class="status"><span class="pulse"></span>En traitement</span>
+          </div>
+          <div class="dash-grid">
+            <div class="metric"><b>TVA</b><span>preparation et controles</span></div>
+            <div class="metric"><b>Bilan</b><span>dossiers mieux structures</span></div>
+            <div class="metric"><b>5j</b><span>formation comptabilite</span></div>
+            <div class="metric"><b>5j</b><span>formation Pennylane</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pourquoi" class="section">
+      <div class="section-title reveal">
+        <h2>Pourquoi sous-traiter vos dossiers comptables.</h2>
+        <p>L'enjeu n'est pas seulement de produire plus vite. Il faut organiser les flux, securiser les controles et garder une comptabilite francaise lisible.</p>
+      </div>
+      <div class="split">
+        <div class="panel device reveal" aria-label="Mockup operationnel dossiers comptables">
+          <div class="device-row"><strong>Import bancaire</strong><span>94%</span><div class="bar" style="grid-column: 1 / -1; width: 94%;"></div></div>
+          <div class="device-row"><strong>Pieces rapprochees</strong><span>81%</span><div class="bar" style="grid-column: 1 / -1; width: 81%;"></div></div>
+          <div class="device-row"><strong>TVA preparee</strong><span>68%</span><div class="bar" style="grid-column: 1 / -1; width: 68%;"></div></div>
+        </div>
+        <div class="panel reveal">
+          <ul class="checks">
+            <li><span class="check-icon"><i data-lucide="workflow" class="icon"></i></span><span><strong>Des flux plus lisibles.</strong><br>Vos equipes savent quoi traiter, quoi controler et quoi escalader.</span></li>
+            <li><span class="check-icon"><i data-lucide="shield-check" class="icon"></i></span><span><strong>Des controles plus solides.</strong><br>Les rapprochements, lettrages et justificatifs sont cadences par une methode claire.</span></li>
+            <li><span class="check-icon"><i data-lucide="users-round" class="icon"></i></span><span><strong>Une montee en competence plus rapide.</strong><br>La formation part des dossiers reels, pas d'un catalogue theorique.</span></li>
+            <li><span class="check-icon"><i data-lucide="line-chart" class="icon"></i></span><span><strong>Un pilotage exploitable.</strong><br>Les indicateurs comptables deviennent comprehensibles pour le cabinet et le client.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="formations" class="section">
+      <div class="section-title reveal">
+        <h2>Deux formations de 5 jours pour monter en competence.</h2>
+        <p>Une formation pour maitriser la comptabilite francaise, une autre pour produire efficacement dans Pennylane.</p>
+      </div>
+      <div class="cards">
+        <article class="card tilt reveal">
+          <span class="tag">Formation 5 jours</span>
+          <h3>Maitrise de la comptabilite francaise</h3>
+          <p>Comprendre et produire les dossiers selon les regles francaises : saisie, controles, TVA, comptes tiers, revision et preparation bilan.</p>
+          <ul><li>Duree : 5 jours</li><li>Public : assistants, collaborateurs, independants</li><li>Resultat : traiter un dossier comptable francais avec methode</li></ul>
+        </article>
+        <article class="card tilt reveal">
+          <span class="tag">Formation 5 jours</span>
+          <h3>Maitrise du logiciel Pennylane</h3>
+          <p>Utiliser Pennylane pour produire : parametres, imports, banques, pieces, lettrage, TVA, tableaux de bord et organisation dossier.</p>
+          <ul><li>Duree : 5 jours</li><li>Public : equipes comptables et cabinets</li><li>Resultat : autonomie operationnelle sur Pennylane</li></ul>
+        </article>
+        <article class="card tilt reveal">
+          <span class="tag">Option</span>
+          <h3>Parcours combine</h3>
+          <p>Associer les fondamentaux de la comptabilite francaise et l'utilisation de Pennylane pour former un profil productif plus rapidement.</p>
+          <ul><li>Duree : 10 jours</li><li>Public : recrues et equipes a structurer</li><li>Resultat : production comptable + outil maitrise</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="services" class="section">
+      <div class="section-title reveal">
+        <h2>Sous-traitance comptable quand la charge depasse l'equipe.</h2>
+        <p>Un renfort operationnel pour absorber les pics, remettre un dossier en ordre ou maintenir la production pendant la montee en competence.</p>
+      </div>
+      <div class="bento">
+        <article class="service wide reveal">
+          <span class="service-icon"><i data-lucide="briefcase-business" class="icon"></i></span>
+          <h3>Renfort de production comptable</h3>
+          <p>Intervention sur dossiers actifs de comptabilite francaise : traitement des pieces, controles bancaires, lettrage, preparation TVA et remontee des points bloquants.</p>
+          <div class="price-note"><strong>A partir de 490 EUR</strong><br>pour un cadrage et un premier lot operationnel.</div>
+        </article>
+        <article class="service reveal"><span class="service-icon"><i data-lucide="receipt-text" class="icon"></i></span><h3>Tenue comptable</h3><p>Traitement structure des flux et pieces justificatives.</p></article>
+        <article class="service reveal"><span class="service-icon"><i data-lucide="link-2" class="icon"></i></span><h3>Lettrage</h3><p>Nettoyage des comptes tiers et preparation des controles.</p></article>
+        <article class="service reveal"><span class="service-icon"><i data-lucide="landmark" class="icon"></i></span><h3>Rapprochements</h3><p>Suivi banque, anomalies et points a arbitrer.</p></article>
+        <article class="service reveal"><span class="service-icon"><i data-lucide="file-check-2" class="icon"></i></span><h3>TVA</h3><p>Preparation des elements et liste des points sensibles.</p></article>
+      </div>
+    </section>
+
+    <section id="methode" class="section">
+      <div class="section-title reveal">
+        <h2>Une methode simple pour ne pas perdre le cabinet en route.</h2>
+        <p>Le diagnostic fixe les priorites, la formation installe les bons gestes, le suivi transforme l'apprentissage en production fiable.</p>
+      </div>
+      <div class="steps">
+        <article class="panel step reveal"><h3>Diagnostic</h3><p>Analyse des dossiers, niveaux utilisateurs, frictions et risques operationnels.</p></article>
+        <article class="panel step reveal"><h3>Formation</h3><p>Sessions ciblees sur vos cas : pieces, banques, controles, organisation et reporting.</p></article>
+        <article class="panel step reveal"><h3>Suivi</h3><p>Support post-formation, renfort sur dossiers et ajustement des process internes.</p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="stats reveal" aria-label="Indicateurs de service">
+        <div class="stat"><strong data-count="2">0</strong><span>formations de 5 jours</span></div>
+        <div class="stat"><strong data-count="5">0</strong><span>services de sous-traitance</span></div>
+        <div class="stat"><strong data-count="48">0</strong><span>heures pour cadrer un diagnostic</span></div>
+        <div class="stat"><strong data-count="100">0</strong><span>pourcent cas pratiques</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title reveal">
+        <h2>Des formats concus pour les vrais dossiers.</h2>
+        <p>Les exemples ci-dessous sont des profils types pour illustrer les cas d'usage et le niveau d'accompagnement attendu.</p>
+      </div>
+      <div class="testimonials">
+        <article class="testimonial reveal"><p class="quote">"La formation a clarifie les routines bancaires et les points de controle. L'equipe sait enfin qui fait quoi."</p><div class="person">Manager cabinet - 12 collaborateurs</div></article>
+        <article class="testimonial reveal"><p class="quote">"Le renfort a permis de remettre les dossiers en ordre avant TVA sans bloquer les collaborateurs internes."</p><div class="person">Expert-comptable independant</div></article>
+        <article class="testimonial reveal"><p class="quote">"Les ateliers etaient concrets : on a travaille sur nos cas, nos libelles, nos erreurs recurrentes."</p><div class="person">Responsable administratif PME</div></article>
+      </div>
+    </section>
+
+    <section id="tarifs" class="section">
+      <div class="section-title reveal">
+        <h2>Trois entrees selon votre besoin.</h2>
+        <p>Formation comptable, formation logiciel ou sous-traitance : le bon format depend du niveau actuel, du volume de dossiers et de l'urgence.</p>
+      </div>
+      <div class="pricing">
+        <article class="price reveal">
+          <div><span class="tag">5 jours</span><h3>Comptabilite francaise</h3><p>Pour maitriser la logique des dossiers comptables francais.</p><div class="amount">Sur devis</div><ul><li>Programme intensif 5 jours</li><li>Cas pratiques francais</li><li>TVA, tiers, revision, bilan</li></ul></div>
+          <a class="btn" href="#contact">Demander ce format</a>
+        </article>
+        <article class="price featured reveal">
+          <div><span class="tag">5 jours</span><h3>Logiciel Pennylane</h3><p>Pour utiliser Pennylane en production comptable quotidienne.</p><div class="amount">Sur devis</div><ul><li>Programme intensif 5 jours</li><li>Parametrage et production</li><li>Banques, pieces, TVA, dashboards</li></ul></div>
+          <a class="btn btn-primary" href="#contact">Planifier un diagnostic</a>
+        </article>
+        <article class="price reveal">
+          <div><span class="tag">Renfort</span><h3>Sous-traitance dossiers</h3><p>Pour absorber un pic ou deleguer un lot de dossiers comptables.</p><div class="amount">Sur devis</div><ul><li>Cadrage du volume</li><li>Traitement comptabilite francaise</li><li>Reporting des anomalies</li></ul></div>
+          <a class="btn" href="#contact">Evaluer le volume</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <div class="section-title reveal">
+        <h2>Questions frequentes.</h2>
+        <p>Des reponses directes pour cadrer le format avant un premier rendez-vous.</p>
+      </div>
+      <div class="faq reveal">
+        <div class="faq-item"><button aria-expanded="false">Quelle est la duree des formations ?<i data-lucide="chevron-down" class="icon"></i></button><div class="faq-body"><p>La formation comptabilite francaise dure 5 jours. La formation logiciel Pennylane dure aussi 5 jours. Elles peuvent etre suivies separement ou combinees.</p></div></div>
+        <div class="faq-item"><button aria-expanded="false">Les formations peuvent-elles se faire a distance ?<i data-lucide="chevron-down" class="icon"></i></button><div class="faq-body"><p>Oui, les formats peuvent etre realises a distance. Un format presentiel peut etre organise selon disponibilite.</p></div></div>
+        <div class="faq-item"><button aria-expanded="false">Travaillez-vous sur nos dossiers reels ?<i data-lucide="chevron-down" class="icon"></i></button><div class="faq-body"><p>Oui, si l'acces est fourni et si le cadre de confidentialite est valide. C'est le format le plus efficace pour progresser rapidement.</p></div></div>
+        <div class="faq-item"><button aria-expanded="false">Quels dossiers pouvez-vous sous-traiter ?<i data-lucide="chevron-down" class="icon"></i></button><div class="faq-body"><p>Les lots sont cadres au depart : tenue, lettrage, rapprochements, preparation TVA, controle des pieces et remontee des anomalies selon la comptabilite francaise.</p></div></div>
+        <div class="faq-item"><button aria-expanded="false">Comment sont proteges les documents ?<i data-lucide="chevron-down" class="icon"></i></button><div class="faq-body"><p>Les acces, perimetres et documents sont cadres avant intervention. Le plan final peut integrer une clause de confidentialite dediee.</p></div></div>
+        <div class="faq-item"><button aria-expanded="false">Combien de temps faut-il pour demarrer ?<i data-lucide="chevron-down" class="icon"></i></button><div class="faq-body"><p>Un premier cadrage peut etre realise sous 48 heures ouvrees apres reception des informations de base.</p></div></div>
+      </div>
+    </section>
+
+    <section id="contact" class="cta">
+      <div>
+        <h2>Cadrez vos dossiers comptables en 30 minutes.</h2>
+        <p>Expliquez votre contexte, le volume de dossiers, votre besoin en sous-traitance ou votre objectif de formation. Vous recevrez une recommandation claire.</p>
+        <div class="cta-actions">
+          <a class="btn btn-coral" href="mailto:contact@finform-expert.fr?subject=Diagnostic%20FinForm%20Expert"><i data-lucide="mail" class="icon"></i>Envoyer un email</a>
+          <a class="btn" href="tel:+33000000000"><i data-lucide="phone" class="icon"></i>Appeler</a>
+        </div>
+      </div>
+      <form class="contact-form" aria-label="Formulaire de contact">
+        <input class="field" type="text" name="name" placeholder="Nom et cabinet" aria-label="Nom et cabinet" autocomplete="name">
+        <input class="field" type="email" name="email" placeholder="Email professionnel" aria-label="Email professionnel" autocomplete="email">
+        <textarea class="field" name="message" placeholder="Besoin principal : sous-traitance, formation comptabilite francaise, formation Pennylane..." aria-label="Besoin principal"></textarea>
+        <button class="btn btn-coral" type="submit"><i data-lucide="send" class="icon"></i>Preparer ma demande</button>
+      </form>
+    </section>
+  </main>
+
+  <aside class="whatsapp-widget" aria-label="Chatbot WhatsApp de capture lead">
+    <div class="whatsapp-panel" role="dialog" aria-label="Assistant WhatsApp FinForm Expert">
+      <div class="chat-head">
+        <span class="chat-avatar"><i data-lucide="message-circle" class="icon"></i></span>
+        <div>
+          <strong>Assistant FinForm</strong>
+          <span>Qualification rapide avant CRM</span>
+        </div>
+        <button class="chat-close" type="button" aria-label="Fermer le chatbot"><i data-lucide="x" class="icon"></i></button>
+      </div>
+      <div class="chat-body">
+        <div class="chat-message">Bonjour. Je peux qualifier votre besoin et preparer le lead pour WhatsApp puis votre CRM.</div>
+        <form class="lead-form">
+          <input name="leadName" type="text" placeholder="Nom / cabinet" aria-label="Nom ou cabinet">
+          <input name="leadPhone" type="tel" placeholder="Telephone WhatsApp" aria-label="Telephone WhatsApp">
+          <select name="leadNeed" aria-label="Besoin">
+            <option value="Sous-traitance comptable">Sous-traitance comptable</option>
+            <option value="Formation comptabilite francaise 5 jours">Formation comptabilite francaise - 5 jours</option>
+            <option value="Formation Pennylane 5 jours">Formation Pennylane - 5 jours</option>
+            <option value="Parcours combine">Parcours combine</option>
+          </select>
+          <button class="btn btn-primary" type="submit"><i data-lucide="send" class="icon"></i>Envoyer sur WhatsApp</button>
+          <div class="lead-status" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+    <button class="whatsapp-toggle" type="button" aria-label="Ouvrir le chatbot WhatsApp" aria-expanded="false">
+      <i data-lucide="message-circle" class="icon"></i>
+    </button>
+  </aside>
+
+  <footer class="footer">
+    <div>
+      <a class="brand" href="#top"><span class="brand-mark">F</span><span>FinForm Expert</span></a>
+      <p>Sous-traitance de dossiers comptables francais, formation comptabilite francaise et formation Pennylane.</p>
+    </div>
+    <div><h3>Offres</h3><a href="#formations">Formations</a><a href="#services">Sous-traitance</a><a href="#tarifs">Tarifs</a></div>
+    <div><h3>Ressources</h3><a href="#pourquoi">Pourquoi sous-traiter</a><a href="#methode">Methode</a><a href="#faq">FAQ</a></div>
+    <div><h3>Contact</h3><span>contact@finform-expert.fr</span><span>France</span><span>&copy; 2026 FinForm Expert</span></div>
+  </footer>
+
+  <script>
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const nav = document.querySelector(".nav");
+    const progress = document.querySelector(".progress");
+
+    function updateChrome() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      nav.classList.toggle("is-scrolled", scrollTop > 10);
+      progress.style.width = max > 0 ? `${(scrollTop / max) * 100}%` : "0%";
+    }
+
+    window.addEventListener("scroll", updateChrome, { passive: true });
+    updateChrome();
+
+    document.querySelectorAll(".faq-item button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const item = button.closest(".faq-item");
+        const body = item.querySelector(".faq-body");
+        const open = button.getAttribute("aria-expanded") === "true";
+        button.setAttribute("aria-expanded", String(!open));
+        body.style.maxHeight = open ? "0" : `${body.scrollHeight}px`;
+      });
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14 });
+
+    document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = Number(el.dataset.count);
+        const duration = 900;
+        const start = performance.now();
+        const suffix = target === 100 ? "%" : "";
+        function tick(now) {
+          const t = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = Math.round(target * eased) + suffix;
+          if (t < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        countObserver.unobserve(el);
+      });
+    }, { threshold: 0.6 });
+
+    document.querySelectorAll("[data-count]").forEach((el) => countObserver.observe(el));
+
+    if (!prefersReducedMotion && window.matchMedia("(min-width: 900px)").matches) {
+      document.querySelectorAll(".tilt").forEach((card) => {
+        card.addEventListener("mousemove", (event) => {
+          const rect = card.getBoundingClientRect();
+          const x = (event.clientX - rect.left) / rect.width - 0.5;
+          const y = (event.clientY - rect.top) / rect.height - 0.5;
+          card.style.transform = `rotateX(${y * -5}deg) rotateY(${x * 6}deg) translateY(-4px)`;
+        });
+        card.addEventListener("mouseleave", () => {
+          card.style.transform = "";
+        });
+      });
+    }
+
+    document.querySelector(".contact-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const data = new FormData(form);
+      const subject = encodeURIComponent("Diagnostic FinForm Expert");
+      const body = encodeURIComponent(
+        `Nom: ${data.get("name") || ""}\nEmail: ${data.get("email") || ""}\n\nBesoin:\n${data.get("message") || ""}`
+      );
+      window.location.href = `mailto:contact@finform-expert.fr?subject=${subject}&body=${body}`;
+    });
+
+    const whatsappWidget = document.querySelector(".whatsapp-widget");
+    const whatsappToggle = document.querySelector(".whatsapp-toggle");
+    const chatClose = document.querySelector(".chat-close");
+    const leadForm = document.querySelector(".lead-form");
+    const leadStatus = document.querySelector(".lead-status");
+    const whatsappBusinessNumber = "33000000000";
+
+    function setChatOpen(open) {
+      whatsappWidget.classList.toggle("is-open", open);
+      whatsappToggle.setAttribute("aria-expanded", String(open));
+    }
+
+    whatsappToggle.addEventListener("click", () => {
+      setChatOpen(!whatsappWidget.classList.contains("is-open"));
+    });
+
+    chatClose.addEventListener("click", () => setChatOpen(false));
+
+    async function sendLeadToCrm(lead) {
+      window.dispatchEvent(new CustomEvent("finform:lead", { detail: lead }));
+      return { ok: true };
+    }
+
+    leadForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = new FormData(leadForm);
+      const lead = {
+        name: data.get("leadName") || "",
+        phone: data.get("leadPhone") || "",
+        need: data.get("leadNeed") || "",
+        source: "whatsapp-widget",
+        createdAt: new Date().toISOString()
+      };
+
+      leadStatus.textContent = "Lead prepare pour le CRM...";
+      await sendLeadToCrm(lead);
+
+      const message = encodeURIComponent(
+        `Bonjour FinForm Expert,\nJe souhaite etre recontacte.\nNom/cabinet: ${lead.name}\nTelephone: ${lead.phone}\nBesoin: ${lead.need}`
+      );
+      leadStatus.textContent = "Ouverture de WhatsApp...";
+      window.open(`https://wa.me/${whatsappBusinessNumber}?text=${message}`, "_blank", "noopener,noreferrer");
+    });
+
+    window.addEventListener("load", () => {
+      if (window.lucide) window.lucide.createIcons();
+      initHeroCanvas();
+    });
+
+    function initHeroCanvas() {
+      const canvas = document.getElementById("hero-canvas");
+      if (!canvas || prefersReducedMotion || !window.THREE) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
+      camera.position.z = 5.5;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.7));
+
+      const group = new THREE.Group();
+      scene.add(group);
+
+      const geo = new THREE.IcosahedronGeometry(1, 1);
+      const mat = new THREE.MeshBasicMaterial({ color: 0xd8f7e5, wireframe: true, transparent: true, opacity: 0.38 });
+      const shapeA = new THREE.Mesh(geo, mat);
+      const shapeB = new THREE.Mesh(new THREE.OctahedronGeometry(.72, 0), new THREE.MeshBasicMaterial({ color: 0xff735c, wireframe: true, transparent: true, opacity: 0.34 }));
+      shapeA.position.set(-1.15, .55, 0);
+      shapeB.position.set(1.45, -.55, -.2);
+      group.add(shapeA, shapeB);
+
+      const positions = new Float32Array(360 * 3);
+      for (let i = 0; i < positions.length; i += 3) {
+        positions[i] = (Math.random() - .5) * 7;
+        positions[i + 1] = (Math.random() - .5) * 5;
+        positions[i + 2] = (Math.random() - .5) * 4;
+      }
+      const particleGeo = new THREE.BufferGeometry();
+      particleGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+      const particles = new THREE.Points(particleGeo, new THREE.PointsMaterial({ color: 0xffffff, size: .025, transparent: true, opacity: .56 }));
+      scene.add(particles);
+
+      function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        renderer.setSize(rect.width, rect.height, false);
+        camera.aspect = rect.width / rect.height;
+        camera.updateProjectionMatrix();
+      }
+
+      function animate() {
+        shapeA.rotation.x += .004;
+        shapeA.rotation.y += .006;
+        shapeB.rotation.y -= .005;
+        particles.rotation.y += .0015;
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      }
+
+      resize();
+      window.addEventListener("resize", resize);
+      animate();
+    }
+  </script>
+</body>
+</html>
