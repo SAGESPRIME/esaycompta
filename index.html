@@ -23,8 +23,8 @@
       --petrol: #0f3f44;
       --teal: #20b8a5;
       --mint: #d8f7e5;
-      --coral: #ff735c;
-      --gold: #eab846;
+      --accent: #e0a52b;
+      --gold: #f3c766;
       --line: rgba(17, 34, 37, .14);
       --glass: rgba(255, 253, 247, .74);
       --shadow: 0 24px 70px rgba(15, 63, 68, .16);
@@ -52,7 +52,7 @@
     a { color: inherit; text-decoration: none; }
     button, input, textarea { font: inherit; }
     button { cursor: pointer; }
-    :focus-visible { outline: 3px solid rgba(255, 115, 92, .75); outline-offset: 4px; }
+    :focus-visible { outline: 3px solid rgba(224, 165, 43, .78); outline-offset: 4px; }
 
     .progress {
       position: fixed;
@@ -60,7 +60,7 @@
       height: 3px;
       width: 0;
       z-index: 100;
-      background: linear-gradient(90deg, var(--coral), var(--teal));
+      background: linear-gradient(90deg, var(--accent), var(--teal));
     }
 
     .nav {
@@ -103,7 +103,7 @@
       display: grid;
       place-items: center;
       color: var(--paper-strong);
-      background: conic-gradient(from 120deg, var(--teal), var(--petrol), var(--coral), var(--teal));
+      background: conic-gradient(from 120deg, var(--teal), var(--petrol), var(--gold), var(--teal));
       clip-path: polygon(25% 4%, 75% 4%, 100% 50%, 75% 96%, 25% 96%, 0 50%);
     }
 
@@ -117,6 +117,19 @@
     }
 
     .nav-links a:hover { color: var(--petrol); }
+
+    .nav-toggle {
+      width: 46px;
+      height: 46px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--petrol);
+      background: rgba(255, 253, 247, .88);
+      box-shadow: 0 8px 24px rgba(17, 34, 37, .08);
+    }
 
     .btn {
       min-height: 46px;
@@ -137,7 +150,7 @@
 
     .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
     .btn-primary { color: white; border-color: transparent; background: linear-gradient(135deg, var(--petrol), #126b68 58%, var(--teal)); }
-    .btn-coral { color: #2d140f; border-color: rgba(255, 115, 92, .25); background: linear-gradient(135deg, #ffd8cf, var(--coral)); }
+    .btn-accent { color: #2a210f; border-color: rgba(224, 165, 43, .34); background: linear-gradient(135deg, #fff0c4, var(--gold)); }
     .icon { width: 18px; height: 18px; stroke-width: 2.2; }
 
     .section {
@@ -167,7 +180,7 @@
       top: 10%;
       width: 24vw;
       height: 72%;
-      background: linear-gradient(180deg, rgba(255, 115, 92, .18), rgba(32, 184, 165, .10));
+      background: linear-gradient(180deg, rgba(224, 165, 43, .18), rgba(32, 184, 165, .10));
       transform: skewX(-12deg);
       border-radius: 8px;
       z-index: -1;
@@ -182,7 +195,7 @@
 
     .hero h1 {
       max-width: 780px;
-      font-size: clamp(48px, 8vw, 112px);
+      font-size: clamp(46px, 6.7vw, 92px);
     }
 
     .eyebrow {
@@ -249,10 +262,10 @@
       max-width: 650px;
       margin-top: 16px;
       padding: 14px;
-      border: 1px solid rgba(255, 115, 92, .28);
+      border: 1px solid rgba(224, 165, 43, .34);
       border-radius: var(--radius);
-      background: linear-gradient(135deg, rgba(255, 253, 247, .86), rgba(255, 216, 207, .58));
-      box-shadow: 0 18px 50px rgba(255, 115, 92, .12);
+      background: linear-gradient(135deg, rgba(255, 253, 247, .88), rgba(255, 240, 196, .64));
+      box-shadow: 0 18px 50px rgba(224, 165, 43, .16);
     }
 
     .offer-kicker {
@@ -261,8 +274,8 @@
       display: grid;
       place-items: center;
       border-radius: 8px;
-      color: #2d140f;
-      background: var(--coral);
+      color: #2a210f;
+      background: var(--gold);
       font-family: var(--font-display);
       font-size: 18px;
       font-weight: 800;
@@ -315,7 +328,7 @@
       overflow: hidden;
       background:
         linear-gradient(160deg, rgba(15, 63, 68, .92), rgba(16, 92, 87, .86)),
-        radial-gradient(circle at 20% 25%, rgba(255, 115, 92, .38), transparent 30%);
+        radial-gradient(circle at 20% 25%, rgba(243, 199, 102, .32), transparent 30%);
       box-shadow: var(--shadow);
       isolation: isolate;
     }
@@ -610,7 +623,7 @@
       content: "0" counter(step);
       display: block;
       margin-bottom: 28px;
-      color: var(--coral);
+      color: var(--accent);
       font-family: var(--font-display);
       font-size: 40px;
       font-weight: 800;
@@ -917,15 +930,38 @@
     }
 
     @media (max-width: 1024px) {
-      .nav-inner { flex-wrap: wrap; padding: 10px 0; }
+      .nav-inner { min-height: 66px; padding: 10px 0; gap: 10px; }
+      .nav-toggle { display: inline-flex; order: 2; }
       .nav-links {
-        order: 3;
-        width: 100%;
-        overflow-x: auto;
-        padding: 0 0 6px;
-        scrollbar-width: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: calc(100% + 8px);
+        display: grid;
+        gap: 4px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 253, 247, .96);
+        box-shadow: 0 18px 48px rgba(15, 63, 68, .14);
+        transform: translateY(-8px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .18s ease, transform .18s ease;
       }
-      .nav-links::-webkit-scrollbar { display: none; }
+      .nav.is-open .nav-links {
+        transform: none;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-links a {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+        border-radius: 8px;
+        background: rgba(15, 63, 68, .04);
+      }
       .hero, .split, .section-title, .cta { grid-template-columns: 1fr; }
       .hero-visual { min-height: 430px; }
       .scene-3d { width: min(58%, 330px); }
@@ -942,13 +978,19 @@
       .nav .btn { min-height: 40px; padding: 0 12px; font-size: 13px; }
       .section { width: min(100% - 24px, var(--max)); padding: 64px 0; }
       .hero { width: min(100% - 24px, var(--max)); min-height: auto; padding: 34px 0 46px; gap: 24px; }
-      .hero h1 { font-size: 41px; line-height: 1; }
-      .hero-copy { font-size: 17px; }
+      .hero h1 { font-size: 38px; line-height: 1.03; }
+      .hero-copy { font-size: 16px; margin: 18px 0 20px; }
+      .trust-row { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 18px; }
+      .trust-item { min-height: 68px; padding: 12px; }
+      .trust-item:nth-child(3) { display: none; }
       .trust-row, .cards, .bento, .steps, .stats, .testimonials, .pricing, .footer { grid-template-columns: 1fr; }
-      .hero-visual { min-height: 330px; }
-      .scene-3d { width: min(76%, 280px); transform: translateY(-34px); }
+      .trust-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-visual { min-height: 315px; }
+      #hero-canvas { display: none; }
+      .scene-3d { width: min(68%, 230px); transform: translateY(-24px); }
+      .orbit, .doc-stack { animation: none; }
       .dash { inset: auto 12px 12px 12px; padding: 14px; }
-      .dash-grid { grid-template-columns: 1fr; }
+      .dash-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .metric { padding: 10px 12px; }
       .metric b { font-size: 20px; }
       .metric span { font-size: 11px; }
@@ -963,11 +1005,12 @@
     }
 
     @media (max-width: 420px) {
-      .hero h1 { font-size: 36px; }
+      .hero h1 { font-size: 34px; }
       .eyebrow { width: 100%; font-size: 12px; }
-      .trust-item { min-height: 72px; }
+      .trust-item { min-height: 64px; }
       .hero-visual { min-height: 310px; }
-      .scene-3d { width: min(82%, 250px); transform: translateY(-38px); }
+      .floating-proof { left: 12px; top: 12px; max-width: calc(100% - 24px); }
+      .scene-3d { width: min(70%, 210px); transform: translateY(-28px); }
       .doc-card-3d { padding: 16px; }
       .dash h2 { font-size: 22px; }
       .dash-top { align-items: flex-start; }
@@ -1005,6 +1048,9 @@
         <span class="brand-mark">F</span>
         <span>FinForm Expert</span>
       </a>
+      <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">
+        <i data-lucide="menu" class="icon"></i>
+      </button>
       <div class="nav-links">
         <a href="#formations">Formations 5 jours</a>
         <a href="#services">Sous-traitance</a>
@@ -1037,7 +1083,7 @@
             <strong>Diagnostic gratuit de votre besoin comptable.</strong>
             <span>Volume de dossiers, niveau equipe, urgence TVA ou formation : on cadre le meilleur plan d'action.</span>
           </div>
-          <a class="btn btn-coral" href="#contact"><i data-lucide="arrow-right" class="icon"></i>Je veux etre rappele</a>
+          <a class="btn btn-accent" href="#contact"><i data-lucide="arrow-right" class="icon"></i>Je veux etre rappele</a>
         </div>
       </div>
 
@@ -1229,7 +1275,7 @@
         <h2>Cadrez vos dossiers comptables en 30 minutes.</h2>
         <p>Expliquez votre contexte, le volume de dossiers, votre besoin en sous-traitance ou votre objectif de formation. Vous recevrez une recommandation claire.</p>
         <div class="cta-actions">
-          <a class="btn btn-coral" href="mailto:contact@finform-expert.fr?subject=Diagnostic%20FinForm%20Expert"><i data-lucide="mail" class="icon"></i>Envoyer un email</a>
+          <a class="btn btn-accent" href="mailto:contact@finform-expert.fr?subject=Diagnostic%20FinForm%20Expert"><i data-lucide="mail" class="icon"></i>Envoyer un email</a>
           <a class="btn" href="tel:+33000000000"><i data-lucide="phone" class="icon"></i>Appeler</a>
         </div>
       </div>
@@ -1240,7 +1286,7 @@
         <input class="field" id="contact-email" type="email" name="email" placeholder="vous@cabinet.fr" aria-label="Email professionnel" autocomplete="email">
         <label class="field-label" for="contact-need">Besoin principal</label>
         <textarea class="field" id="contact-need" name="message" placeholder="Sous-traitance, formation comptabilite francaise, formation Pennylane..." aria-label="Besoin principal"></textarea>
-        <button class="btn btn-coral" type="submit"><i data-lucide="send" class="icon"></i>Preparer ma demande</button>
+        <button class="btn btn-accent" type="submit"><i data-lucide="send" class="icon"></i>Preparer ma demande</button>
       </form>
     </section>
   </main>
@@ -1293,6 +1339,7 @@
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const nav = document.querySelector(".nav");
     const progress = document.querySelector(".progress");
+    const navToggle = document.querySelector(".nav-toggle");
 
     function updateChrome() {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -1303,6 +1350,18 @@
 
     window.addEventListener("scroll", updateChrome, { passive: true });
     updateChrome();
+
+    navToggle.addEventListener("click", () => {
+      const open = nav.classList.toggle("is-open");
+      navToggle.setAttribute("aria-expanded", String(open));
+    });
+
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("is-open");
+        navToggle.setAttribute("aria-expanded", "false");
+      });
+    });
 
     document.querySelectorAll(".faq-item button").forEach((button) => {
       button.addEventListener("click", () => {
@@ -1437,7 +1496,7 @@
       const geo = new THREE.IcosahedronGeometry(1, 1);
       const mat = new THREE.MeshBasicMaterial({ color: 0xd8f7e5, wireframe: true, transparent: true, opacity: 0.38 });
       const shapeA = new THREE.Mesh(geo, mat);
-      const shapeB = new THREE.Mesh(new THREE.OctahedronGeometry(.72, 0), new THREE.MeshBasicMaterial({ color: 0xff735c, wireframe: true, transparent: true, opacity: 0.34 }));
+      const shapeB = new THREE.Mesh(new THREE.OctahedronGeometry(.72, 0), new THREE.MeshBasicMaterial({ color: 0xf3c766, wireframe: true, transparent: true, opacity: 0.34 }));
       shapeA.position.set(-1.15, .55, 0);
       shapeB.position.set(1.45, -.55, -.2);
       group.add(shapeA, shapeB);
