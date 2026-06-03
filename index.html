@@ -230,6 +230,8 @@
     .hero-visual {
       position: relative;
       min-height: 540px;
+      display: grid;
+      place-items: center;
       border: 1px solid rgba(15, 63, 68, .18);
       border-radius: 8px;
       overflow: hidden;
@@ -240,12 +242,109 @@
       isolation: isolate;
     }
 
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background:
+        linear-gradient(115deg, rgba(255,255,255,.12) 0 1px, transparent 1px 84px),
+        radial-gradient(circle at 50% 45%, rgba(216, 247, 229, .20), transparent 42%);
+      pointer-events: none;
+    }
+
     #hero-canvas {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       z-index: 0;
+    }
+
+    .scene-3d {
+      position: relative;
+      z-index: 1;
+      width: min(72%, 360px);
+      aspect-ratio: 1;
+      perspective: 900px;
+      transform-style: preserve-3d;
+    }
+
+    .orbit {
+      position: absolute;
+      inset: 8%;
+      border: 1px solid rgba(255, 255, 255, .24);
+      border-radius: 50%;
+      transform: rotateX(64deg) rotateZ(-18deg);
+      animation: orbitSpin 12s linear infinite;
+    }
+
+    .orbit::before,
+    .orbit::after {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 24px rgba(234, 184, 70, .75);
+    }
+
+    .orbit::before { left: 10%; top: 17%; }
+    .orbit::after { right: 12%; bottom: 16%; background: var(--teal); }
+
+    .doc-stack {
+      position: absolute;
+      inset: 13%;
+      transform-style: preserve-3d;
+      animation: floatStack 5.8s ease-in-out infinite;
+    }
+
+    .doc-card-3d {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      align-content: start;
+      gap: 14px;
+      padding: 22px;
+      border: 1px solid rgba(255, 255, 255, .35);
+      border-radius: 8px;
+      background: linear-gradient(145deg, rgba(255, 253, 247, .96), rgba(216, 247, 229, .88));
+      box-shadow: 0 26px 70px rgba(0, 0, 0, .22);
+      transform: rotateX(58deg) rotateZ(-35deg) translateZ(60px);
+    }
+
+    .doc-card-3d:nth-child(2) {
+      background: linear-gradient(145deg, rgba(255, 213, 205, .92), rgba(255, 253, 247, .88));
+      transform: rotateX(58deg) rotateZ(-35deg) translate3d(22px, 26px, 20px);
+      opacity: .78;
+    }
+
+    .doc-card-3d:nth-child(3) {
+      background: linear-gradient(145deg, rgba(234, 184, 70, .82), rgba(255, 253, 247, .9));
+      transform: rotateX(58deg) rotateZ(-35deg) translate3d(44px, 52px, -18px);
+      opacity: .58;
+    }
+
+    .doc-line {
+      height: 10px;
+      border-radius: 99px;
+      background: rgba(15, 63, 68, .22);
+    }
+
+    .doc-line.strong { width: 62%; background: var(--petrol); }
+    .doc-line.mid { width: 84%; }
+    .doc-line.short { width: 48%; background: rgba(32, 184, 165, .55); }
+
+    .doc-total {
+      width: max-content;
+      margin-top: auto;
+      padding: 8px 10px;
+      border-radius: 8px;
+      color: white;
+      background: var(--petrol);
+      font-size: 12px;
+      font-weight: 900;
     }
 
     .dash {
@@ -691,6 +790,15 @@
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .65s ease; }
     .reveal.is-visible { opacity: 1; transform: none; }
 
+    @keyframes floatStack {
+      0%, 100% { transform: translate3d(0, 0, 0) rotateY(-8deg); }
+      50% { transform: translate3d(0, -16px, 0) rotateY(8deg); }
+    }
+
+    @keyframes orbitSpin {
+      to { transform: rotateX(64deg) rotateZ(342deg); }
+    }
+
     @media (max-width: 1024px) {
       .nav-inner { flex-wrap: wrap; padding: 10px 0; }
       .nav-links {
@@ -703,6 +811,7 @@
       .nav-links::-webkit-scrollbar { display: none; }
       .hero, .split, .section-title, .cta { grid-template-columns: 1fr; }
       .hero-visual { min-height: 430px; }
+      .scene-3d { width: min(58%, 330px); }
       .bento, .cards, .pricing, .testimonials { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .service.wide { grid-row: auto; }
       .stats, .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -715,16 +824,33 @@
       .nav .btn { min-height: 40px; padding: 0 12px; font-size: 13px; }
       .section { width: min(100% - 24px, var(--max)); padding: 64px 0; }
       .hero { width: min(100% - 24px, var(--max)); min-height: auto; padding: 34px 0 46px; gap: 24px; }
-      .hero h1 { font-size: 48px; }
+      .hero h1 { font-size: 41px; line-height: 1; }
       .hero-copy { font-size: 17px; }
       .trust-row, .cards, .bento, .steps, .stats, .testimonials, .pricing, .footer { grid-template-columns: 1fr; }
-      .hero-visual { min-height: 380px; }
+      .hero-visual { min-height: 330px; }
+      .scene-3d { width: min(76%, 280px); transform: translateY(-34px); }
       .dash { inset: auto 12px 12px 12px; padding: 14px; }
       .dash-grid { grid-template-columns: 1fr; }
+      .metric { padding: 10px 12px; }
+      .metric b { font-size: 20px; }
+      .metric span { font-size: 11px; }
       .cta { width: min(100% - 24px, var(--max)); padding: 28px 18px; }
       .hero-actions .btn, .cta-actions .btn { width: 100%; }
       .whatsapp-widget { right: 12px; bottom: 12px; }
       .whatsapp-toggle { width: 58px; height: 58px; }
+    }
+
+    @media (max-width: 420px) {
+      .hero h1 { font-size: 36px; }
+      .eyebrow { width: 100%; font-size: 12px; }
+      .trust-item { min-height: 72px; }
+      .hero-visual { min-height: 310px; }
+      .scene-3d { width: min(82%, 250px); transform: translateY(-38px); }
+      .doc-card-3d { padding: 16px; }
+      .dash h2 { font-size: 22px; }
+      .dash-top { align-items: flex-start; }
+      .status { font-size: 11px; }
+      .whatsapp-panel { width: calc(100vw - 24px); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -734,6 +860,7 @@
         scroll-behavior: auto !important;
         transition-duration: .001ms !important;
       }
+      .orbit, .doc-stack, .whatsapp-toggle, .whatsapp-toggle::before { animation: none !important; }
     }
   </style>
   <script type="application/ld+json">
@@ -786,6 +913,27 @@
 
       <div class="hero-visual reveal" aria-label="Tableau de bord FinForm Expert">
         <canvas id="hero-canvas"></canvas>
+        <div class="scene-3d" aria-hidden="true">
+          <div class="orbit"></div>
+          <div class="doc-stack">
+            <div class="doc-card-3d">
+              <span class="doc-line strong"></span>
+              <span class="doc-line mid"></span>
+              <span class="doc-line short"></span>
+              <span class="doc-total">Dossier comptable FR</span>
+            </div>
+            <div class="doc-card-3d">
+              <span class="doc-line strong"></span>
+              <span class="doc-line mid"></span>
+              <span class="doc-line short"></span>
+            </div>
+            <div class="doc-card-3d">
+              <span class="doc-line strong"></span>
+              <span class="doc-line mid"></span>
+              <span class="doc-line short"></span>
+            </div>
+          </div>
+        </div>
         <div class="dash">
           <div class="dash-top">
             <h2>Dossiers clients</h2>
