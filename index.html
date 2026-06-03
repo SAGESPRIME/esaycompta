@@ -333,6 +333,181 @@
       isolation: isolate;
     }
 
+    .hero-chat {
+      position: relative;
+      z-index: 2;
+      width: min(86%, 448px);
+      border: 1px solid rgba(216, 247, 229, .36);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #f8fbf8;
+      box-shadow: 0 34px 90px rgba(0, 0, 0, .28);
+      animation: assistantFloat 5.5s ease-in-out infinite;
+    }
+
+    .hero-chat::before {
+      content: "";
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      right: -78px;
+      top: -72px;
+      border: 1px solid rgba(243, 199, 102, .22);
+      transform: rotate(45deg);
+      pointer-events: none;
+    }
+
+    .hero-chat-head {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      color: white;
+      background: linear-gradient(100deg, rgba(15, 63, 68, .96), rgba(42, 112, 82, .88));
+    }
+
+    .hero-chat-icon {
+      position: relative;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, .12);
+    }
+
+    .hero-chat-icon::after {
+      content: "";
+      position: absolute;
+      right: -3px;
+      bottom: -3px;
+      width: 13px;
+      height: 13px;
+      border: 3px solid rgba(15, 63, 68, .95);
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 7px rgba(32, 184, 165, .18);
+    }
+
+    .hero-chat-head strong {
+      display: block;
+      line-height: 1.08;
+      font-family: var(--font-display);
+      font-size: 17px;
+    }
+
+    .hero-chat-head span {
+      display: block;
+      color: rgba(255, 255, 255, .76);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .hero-chat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 30px;
+      padding: 0 12px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .13);
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .hero-chat-body {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+    }
+
+    .assistant-bubble {
+      padding: 18px;
+      border: 1px solid rgba(17, 34, 37, .10);
+      border-radius: 12px;
+      color: #243b40;
+      background: white;
+      box-shadow: 0 10px 28px rgba(15, 63, 68, .08);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .assistant-bubble p {
+      margin: 0 0 14px;
+    }
+
+    .assistant-bubble p:last-child {
+      margin-bottom: 0;
+    }
+
+    .hero-chat-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hero-choice {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      border: 1px solid rgba(15, 63, 68, .24);
+      border-radius: 999px;
+      color: #29494e;
+      background: rgba(255, 253, 247, .92);
+      font-size: 13px;
+      font-weight: 900;
+      transition: transform .18s ease, background .18s ease;
+    }
+
+    .hero-choice:hover,
+    .hero-choice:focus-visible {
+      transform: translateY(-1px);
+      background: var(--mint);
+    }
+
+    .hero-chat-form {
+      display: grid;
+      grid-template-columns: 1fr 46px;
+      gap: 8px;
+      padding-top: 2px;
+    }
+
+    .hero-chat-input {
+      min-height: 48px;
+      border: 1px solid rgba(17, 34, 37, .12);
+      border-radius: 10px;
+      padding: 0 14px;
+      color: var(--ink);
+      background: white;
+    }
+
+    .hero-chat-send {
+      width: 46px;
+      min-height: 46px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 10px;
+      color: white;
+      background: linear-gradient(135deg, var(--petrol), var(--teal));
+      box-shadow: 0 12px 28px rgba(32, 184, 165, .24);
+    }
+
+    .hero-chat-note {
+      display: block;
+      margin-top: 2px;
+      color: rgba(255, 255, 255, .58);
+      font-size: 12px;
+      font-weight: 800;
+      text-align: center;
+    }
+
     .hero-visual::after {
       content: "";
       position: absolute;
@@ -925,6 +1100,11 @@
       50% { transform: translate3d(0, -16px, 0) rotateY(8deg); }
     }
 
+    @keyframes assistantFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
     @keyframes orbitSpin {
       to { transform: rotateX(64deg) rotateZ(342deg); }
     }
@@ -985,8 +1165,24 @@
       .trust-item:nth-child(3) { display: none; }
       .trust-row, .cards, .bento, .steps, .stats, .testimonials, .pricing, .footer { grid-template-columns: 1fr; }
       .trust-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .hero-visual { min-height: 315px; }
+      .hero-visual { min-height: 500px; }
       #hero-canvas { display: none; }
+      .hero-chat {
+        width: calc(100% - 24px);
+        animation: none;
+      }
+      .hero-chat-head {
+        grid-template-columns: 42px 1fr;
+        padding: 14px;
+      }
+      .hero-chat-badge {
+        grid-column: 1 / -1;
+        justify-self: start;
+      }
+      .hero-chat-body { padding: 12px; }
+      .assistant-bubble { padding: 14px; font-size: 13px; }
+      .hero-chat-options { gap: 7px; }
+      .hero-choice { min-height: 38px; font-size: 12px; }
       .scene-3d { width: min(68%, 230px); transform: translateY(-24px); }
       .orbit, .doc-stack { animation: none; }
       .dash { inset: auto 12px 12px 12px; padding: 14px; }
@@ -997,10 +1193,11 @@
       .cta { width: min(100% - 24px, var(--max)); padding: 28px 18px; }
       .hero-actions .btn, .cta-actions .btn { width: 100%; }
       .hero-offer { grid-template-columns: 1fr; }
+      .hero-offer { display: none; }
       .hero-offer .btn { width: 100%; }
       .proof-band { width: min(100% - 24px, var(--max)); grid-template-columns: 1fr; }
       .proof-cell { min-height: auto; }
-      .whatsapp-widget { right: 12px; bottom: 12px; }
+      .whatsapp-widget { display: none; }
       .whatsapp-toggle { width: 58px; height: 58px; }
     }
 
@@ -1008,8 +1205,10 @@
       .hero h1 { font-size: 34px; }
       .eyebrow { width: 100%; font-size: 12px; }
       .trust-item { min-height: 64px; }
-      .hero-visual { min-height: 310px; }
+      .hero-visual { min-height: 500px; }
       .floating-proof { left: 12px; top: 12px; max-width: calc(100% - 24px); }
+      .hero-chat { width: 100%; }
+      .hero-chat-form { grid-template-columns: 1fr 44px; }
       .scene-3d { width: min(70%, 210px); transform: translateY(-28px); }
       .doc-card-3d { padding: 16px; }
       .dash h2 { font-size: 22px; }
@@ -1087,42 +1286,36 @@
         </div>
       </div>
 
-      <div class="hero-visual reveal" aria-label="Tableau de bord FinForm Expert">
+      <div class="hero-visual reveal" aria-label="Assistant de qualification FinForm Expert">
         <canvas id="hero-canvas"></canvas>
-        <div class="floating-proof"><i></i> Dossiers comptables francais</div>
-        <div class="scene-3d" aria-hidden="true">
-          <div class="orbit"></div>
-          <div class="doc-stack">
-            <div class="doc-card-3d">
-              <span class="doc-line strong"></span>
-              <span class="doc-line mid"></span>
-              <span class="doc-line short"></span>
-              <span class="doc-total">Dossier comptable FR</span>
+        <div class="hero-chat">
+          <div class="hero-chat-head">
+            <span class="hero-chat-icon"><i data-lucide="message-square" class="icon"></i></span>
+            <div>
+              <strong>Assistant FinForm</strong>
+              <span>En ligne - reponse instantanee</span>
             </div>
-            <div class="doc-card-3d">
-              <span class="doc-line strong"></span>
-              <span class="doc-line mid"></span>
-              <span class="doc-line short"></span>
+            <span class="hero-chat-badge"><i data-lucide="check" class="icon"></i> Gratuit - 2 min</span>
+          </div>
+          <div class="hero-chat-body">
+            <div class="assistant-bubble">
+              <p>Bonjour. Je suis l'assistant FinForm Expert.</p>
+              <p>Je vous aide a qualifier votre besoin en sous-traitance comptable ou formation en moins de 2 minutes.</p>
+              <p>Quel est l'objet de votre demande ?</p>
             </div>
-            <div class="doc-card-3d">
-              <span class="doc-line strong"></span>
-              <span class="doc-line mid"></span>
-              <span class="doc-line short"></span>
+            <div class="hero-chat-options" aria-label="Choix rapides">
+              <button class="hero-choice" type="button" data-hero-need="Sous-traitance de dossiers comptables">Dossiers comptables</button>
+              <button class="hero-choice" type="button" data-hero-need="Formation comptabilite francaise 5 jours">Formation comptabilite</button>
+              <button class="hero-choice" type="button" data-hero-need="Formation Pennylane 5 jours">Formation Pennylane</button>
+              <button class="hero-choice" type="button" data-hero-need="Besoin mixte sous-traitance et formation">Besoin mixte</button>
             </div>
+            <form class="hero-chat-form" aria-label="Demande rapide WhatsApp">
+              <input class="hero-chat-input" name="heroNeed" type="text" placeholder="Votre reponse..." aria-label="Votre reponse">
+              <button class="hero-chat-send" type="submit" aria-label="Envoyer sur WhatsApp"><i data-lucide="send" class="icon"></i></button>
+            </form>
           </div>
         </div>
-        <div class="dash">
-          <div class="dash-top">
-            <h2>Dossiers clients</h2>
-            <span class="status"><span class="pulse"></span>En traitement</span>
-          </div>
-          <div class="dash-grid">
-            <div class="metric"><b>TVA</b><span>preparation et controles</span></div>
-            <div class="metric"><b>Bilan</b><span>dossiers mieux structures</span></div>
-            <div class="metric"><b>5j</b><span>formation comptabilite</span></div>
-            <div class="metric"><b>5j</b><span>formation Pennylane</span></div>
-          </div>
-        </div>
+        <span class="hero-chat-note">Qualification en 2 min - Sans engagement</span>
       </div>
     </section>
 
@@ -1435,6 +1628,8 @@
     const chatClose = document.querySelector(".chat-close");
     const leadForm = document.querySelector(".lead-form");
     const leadStatus = document.querySelector(".lead-status");
+    const heroChatForm = document.querySelector(".hero-chat-form");
+    const heroChatInput = document.querySelector(".hero-chat-input");
     const whatsappBusinessNumber = "33000000000";
 
     function setChatOpen(open) {
@@ -1453,6 +1648,34 @@
       return { ok: true };
     }
 
+    function openWhatsAppLead(lead) {
+      const message = encodeURIComponent(
+        `Bonjour FinForm Expert,\nJe souhaite etre recontacte.\nNom/cabinet: ${lead.name || ""}\nTelephone: ${lead.phone || ""}\nBesoin: ${lead.need || ""}`
+      );
+      window.open(`https://wa.me/${whatsappBusinessNumber}?text=${message}`, "_blank", "noopener,noreferrer");
+    }
+
+    document.querySelectorAll(".hero-choice").forEach((choice) => {
+      choice.addEventListener("click", () => {
+        heroChatInput.value = choice.dataset.heroNeed || choice.textContent.trim();
+        heroChatInput.focus();
+      });
+    });
+
+    heroChatForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = new FormData(heroChatForm);
+      const lead = {
+        name: "",
+        phone: "",
+        need: data.get("heroNeed") || "Diagnostic depuis le chatbot hero",
+        source: "hero-chatbot",
+        createdAt: new Date().toISOString()
+      };
+      await sendLeadToCrm(lead);
+      openWhatsAppLead(lead);
+    });
+
     leadForm.addEventListener("submit", async (event) => {
       event.preventDefault();
       const data = new FormData(leadForm);
@@ -1467,11 +1690,8 @@
       leadStatus.textContent = "Lead prepare pour le CRM...";
       await sendLeadToCrm(lead);
 
-      const message = encodeURIComponent(
-        `Bonjour FinForm Expert,\nJe souhaite etre recontacte.\nNom/cabinet: ${lead.name}\nTelephone: ${lead.phone}\nBesoin: ${lead.need}`
-      );
       leadStatus.textContent = "Ouverture de WhatsApp...";
-      window.open(`https://wa.me/${whatsappBusinessNumber}?text=${message}`, "_blank", "noopener,noreferrer");
+      openWhatsAppLead(lead);
     });
 
     window.addEventListener("load", () => {
