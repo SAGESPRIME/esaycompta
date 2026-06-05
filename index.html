@@ -285,22 +285,97 @@
     .hero-offer span { color: var(--muted); font-size: 13px; font-weight: 700; }
 
     .proof-band {
+      position: relative;
       width: min(var(--max), calc(100% - 32px));
       margin: -18px auto 0;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 1px;
-      border: 1px solid var(--line);
+      gap: 0;
+      border: 1px solid rgba(243, 199, 102, .30);
       border-radius: var(--radius);
       overflow: hidden;
-      background: var(--line);
-      box-shadow: 0 16px 50px rgba(15, 63, 68, .10);
+      background:
+        linear-gradient(135deg, rgba(255, 253, 247, .92), rgba(247, 240, 221, .74)),
+        radial-gradient(circle at 15% 0%, rgba(243, 199, 102, .22), transparent 34%),
+        radial-gradient(circle at 84% 100%, rgba(32, 184, 165, .18), transparent 36%);
+      box-shadow: 0 26px 80px rgba(15, 63, 68, .16), inset 0 1px 0 rgba(255, 255, 255, .72);
+      isolation: isolate;
+    }
+
+    .proof-band::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(110deg, transparent 0 30%, rgba(255, 255, 255, .48) 45%, transparent 60% 100%),
+        repeating-linear-gradient(90deg, transparent 0 25%, rgba(15, 63, 68, .08) 25% calc(25% + 1px), transparent calc(25% + 1px) 100%);
+      transform: translateX(-100%);
+      animation: proofShine 7s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .proof-band::after {
+      content: "";
+      position: absolute;
+      inset: auto 18px 0;
+      height: 3px;
+      border-radius: 999px 999px 0 0;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--teal), transparent);
+      opacity: .78;
+      z-index: 1;
     }
 
     .proof-cell {
+      position: relative;
       min-height: 118px;
-      padding: 18px;
-      background: rgba(255, 253, 247, .78);
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 20px 18px;
+      background: rgba(255, 253, 247, .60);
+      transform: none;
+      opacity: 1;
+      animation: proofRise .72s cubic-bezier(.2, .8, .2, 1) backwards;
+      transition: transform .28s ease, background .28s ease, box-shadow .28s ease;
+      z-index: 2;
+    }
+
+    .proof-cell:nth-child(2) { animation-delay: .10s; }
+    .proof-cell:nth-child(3) { animation-delay: .20s; }
+    .proof-cell:nth-child(4) { animation-delay: .30s; }
+
+    .proof-cell:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      inset: 18px 0 18px auto;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, rgba(15, 63, 68, .16), transparent);
+    }
+
+    .proof-cell:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 253, 247, .88);
+      box-shadow: 0 22px 58px rgba(15, 63, 68, .14);
+    }
+
+    .proof-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(243, 199, 102, .42);
+      border-radius: 8px;
+      color: #fffdf7;
+      background:
+        linear-gradient(145deg, rgba(15, 63, 68, .96), rgba(18, 107, 104, .92)),
+        radial-gradient(circle at 20% 20%, rgba(243, 199, 102, .52), transparent 38%);
+      box-shadow: 0 14px 32px rgba(15, 63, 68, .22);
+    }
+
+    .proof-copy {
+      min-width: 0;
     }
 
     .proof-cell b {
@@ -308,7 +383,7 @@
       margin-bottom: 7px;
       color: var(--petrol);
       font-family: var(--font-display);
-      font-size: 24px;
+      font-size: 25px;
       line-height: 1;
     }
 
@@ -1079,6 +1154,17 @@
       80%, 100% { transform: scale(1.25); opacity: 0; }
     }
 
+    @keyframes proofRise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes proofShine {
+      0%, 52% { transform: translateX(-110%); opacity: 0; }
+      62% { opacity: .78; }
+      86%, 100% { transform: translateX(110%); opacity: 0; }
+    }
+
     .footer {
       width: min(var(--max), calc(100% - 32px));
       margin: 0 auto;
@@ -1146,6 +1232,7 @@
       .hero-visual { min-height: 430px; }
       .scene-3d { width: min(58%, 330px); }
       .proof-band { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 0; }
+      .proof-cell:nth-child(2)::after { display: none; }
       .bento, .cards, .pricing, .testimonials { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .service.wide { grid-row: auto; }
       .stats, .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1196,7 +1283,10 @@
       .hero-offer { display: none; }
       .hero-offer .btn { width: 100%; }
       .proof-band { width: min(100% - 24px, var(--max)); grid-template-columns: 1fr; }
-      .proof-cell { min-height: auto; }
+      .proof-band::before { background: linear-gradient(110deg, transparent 0 30%, rgba(255, 255, 255, .42) 45%, transparent 60% 100%); }
+      .proof-cell { min-height: auto; padding: 17px; }
+      .proof-cell::after { display: none; }
+      .proof-icon { width: 42px; height: 42px; }
       .whatsapp-widget { display: none; }
       .whatsapp-toggle { width: 58px; height: 58px; }
     }
@@ -1205,6 +1295,15 @@
       .hero h1 { font-size: 34px; }
       .eyebrow { width: 100%; font-size: 12px; }
       .trust-item { min-height: 64px; }
+      .proof-band { width: min(100% - 20px, var(--max)); }
+      .proof-cell {
+        grid-template-columns: 38px 1fr;
+        gap: 12px;
+        padding: 15px;
+      }
+      .proof-icon { width: 38px; height: 38px; }
+      .proof-cell b { font-size: 22px; }
+      .proof-cell span { font-size: 12px; line-height: 1.45; }
       .hero-visual { min-height: 500px; }
       .floating-proof { left: 12px; top: 12px; max-width: calc(100% - 24px); }
       .hero-chat { width: 100%; }
@@ -1224,7 +1323,8 @@
         scroll-behavior: auto !important;
         transition-duration: .001ms !important;
       }
-      .orbit, .doc-stack, .whatsapp-toggle, .whatsapp-toggle::before { animation: none !important; }
+      .orbit, .doc-stack, .whatsapp-toggle, .whatsapp-toggle::before, .proof-band::before, .proof-cell { animation: none !important; }
+      .proof-cell { opacity: 1; transform: none; }
     }
   </style>
   <script type="application/ld+json">
@@ -1320,10 +1420,22 @@
     </section>
 
     <section class="proof-band" aria-label="Benefices principaux">
-      <div class="proof-cell"><b>Tenue</b><span>Traitement des pieces, banques et flux courants.</span></div>
-      <div class="proof-cell"><b>TVA</b><span>Preparation, controles et points sensibles remontes.</span></div>
-      <div class="proof-cell"><b>Revision</b><span>Dossiers structures pour gagner du temps au bilan.</span></div>
-      <div class="proof-cell"><b>Formation</b><span>Deux parcours de 5 jours pour rendre l'equipe autonome.</span></div>
+      <div class="proof-cell">
+        <span class="proof-icon"><i data-lucide="receipt-text" class="icon"></i></span>
+        <div class="proof-copy"><b>Tenue</b><span>Traitement des pieces, banques et flux courants.</span></div>
+      </div>
+      <div class="proof-cell">
+        <span class="proof-icon"><i data-lucide="shield-check" class="icon"></i></span>
+        <div class="proof-copy"><b>TVA</b><span>Preparation, controles et points sensibles remontes.</span></div>
+      </div>
+      <div class="proof-cell">
+        <span class="proof-icon"><i data-lucide="file-check-2" class="icon"></i></span>
+        <div class="proof-copy"><b>Revision</b><span>Dossiers structures pour gagner du temps au bilan.</span></div>
+      </div>
+      <div class="proof-cell">
+        <span class="proof-icon"><i data-lucide="graduation-cap" class="icon"></i></span>
+        <div class="proof-copy"><b>Formation</b><span>Deux parcours de 5 jours pour rendre l'equipe autonome.</span></div>
+      </div>
     </section>
 
     <section id="pourquoi" class="section">
