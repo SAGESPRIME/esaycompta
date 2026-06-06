@@ -1326,6 +1326,69 @@
       .orbit, .doc-stack, .whatsapp-toggle, .whatsapp-toggle::before, .proof-band::before, .proof-cell { animation: none !important; }
       .proof-cell { opacity: 1; transform: none; }
     }
+
+    /* ===== Agent conversationnel EasyConseil ===== */
+    .ec-agent { position: fixed; right: 22px; bottom: 22px; z-index: 60; font-family: var(--font-body); }
+    .ec-fab {
+      width: 64px; height: 64px; border: 0; border-radius: 50%; cursor: pointer; position: relative;
+      color: #fff; background: linear-gradient(135deg, #20b8a5, #0f3f44);
+      box-shadow: 0 16px 40px rgba(15,63,68,.40); display: grid; place-items: center;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .ec-fab:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 22px 52px rgba(15,63,68,.5); }
+    .ec-fab .icon { width: 28px; height: 28px; }
+    .ec-fab::after {
+      content: ""; position: absolute; inset: 0; border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(32,184,165,.55); animation: ecPulse 2.2s infinite;
+    }
+    @keyframes ecPulse { 70% { box-shadow: 0 0 0 18px rgba(32,184,165,0); } 100% { box-shadow: 0 0 0 0 rgba(32,184,165,0); } }
+    .ec-fab-badge {
+      position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px; padding: 0 5px;
+      border-radius: 10px; background: var(--accent); color: #20140a; font-size: 12px; font-weight: 800;
+      display: grid; place-items: center; box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    }
+    .ec-agent.is-open .ec-fab-badge { display: none; }
+    .ec-agent.is-open .ec-fab-ico { transform: rotate(8deg); }
+    .ec-panel {
+      position: absolute; right: 0; bottom: 80px; width: 366px; max-width: calc(100vw - 30px);
+      background: var(--paper-strong); border: 1px solid var(--line); border-radius: 20px; overflow: hidden;
+      box-shadow: 0 30px 80px rgba(15,63,68,.28); display: flex; flex-direction: column;
+      opacity: 0; transform: translateY(16px) scale(.97); pointer-events: none;
+      transition: opacity .26s ease, transform .26s cubic-bezier(.2,.9,.3,1.2);
+    }
+    .ec-agent.is-open .ec-panel { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .ec-head { display: flex; align-items: center; gap: 11px; padding: 14px 16px; color: #fff; background: linear-gradient(135deg, #0f3f44, #1c8f80); }
+    .ec-avatar { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.16); display: grid; place-items: center; }
+    .ec-avatar .icon { width: 20px; height: 20px; }
+    .ec-head-txt strong { display: block; font-size: 15px; font-weight: 800; font-family: var(--font-display); }
+    .ec-status { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: rgba(255,255,255,.8); font-weight: 700; }
+    .ec-live { width: 8px; height: 8px; border-radius: 50%; background: #5ef0a0; box-shadow: 0 0 0 0 rgba(94,240,160,.7); animation: ecLive 1.8s infinite; }
+    @keyframes ecLive { 70% { box-shadow: 0 0 0 6px rgba(94,240,160,0); } }
+    .ec-close { margin-left: auto; border: 0; background: transparent; color: #fff; cursor: pointer; opacity: .85; display: grid; place-items: center; }
+    .ec-close .icon { width: 18px; height: 18px; }
+    .ec-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; height: 340px; overflow-y: auto; background: linear-gradient(180deg, #f3f7f4, #fffdf7); }
+    .ec-msg { max-width: 84%; padding: 10px 13px; border-radius: 14px; font-size: 14px; line-height: 1.45; color: var(--ink); animation: ecIn .3s ease both; }
+    .ec-msg.bot { align-self: flex-start; background: #fff; border: 1px solid var(--line); border-bottom-left-radius: 5px; }
+    .ec-msg.me  { align-self: flex-end; color: #06302b; background: linear-gradient(135deg, #d8f7e5, #b6efce); border-bottom-right-radius: 5px; font-weight: 600; }
+    @keyframes ecIn { from { opacity: 0; transform: translateY(8px); } }
+    .ec-typing { align-self: flex-start; background: #fff; border: 1px solid var(--line); border-radius: 14px; border-bottom-left-radius: 5px; padding: 12px 14px; display: inline-flex; gap: 4px; }
+    .ec-typing i { width: 7px; height: 7px; border-radius: 50%; background: #9bb0b1; display: inline-block; animation: ecBounce 1.2s infinite; }
+    .ec-typing i:nth-child(2){ animation-delay: .18s; } .ec-typing i:nth-child(3){ animation-delay: .36s; }
+    @keyframes ecBounce { 0%,60%,100%{ transform: translateY(0); opacity:.5; } 30%{ transform: translateY(-5px); opacity:1; } }
+    .ec-chips { display: flex; flex-wrap: wrap; gap: 7px; align-self: flex-start; max-width: 92%; }
+    .ec-chip { border: 1px solid var(--teal); background: #fff; color: #0f3f44; padding: 8px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all .18s ease; }
+    .ec-chip:hover { background: var(--teal); color: #fff; transform: translateY(-1px); }
+    .ec-cta { align-self: stretch; margin-top: 2px; border: 0; cursor: pointer; padding: 12px; border-radius: 12px; font-size: 14.5px; font-weight: 800; color: #fff; background: linear-gradient(135deg, #23c063, #128c7e); box-shadow: 0 12px 30px rgba(18,140,126,.34); display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .ec-cta:hover { filter: brightness(1.05); }
+    .ec-input-row { display: grid; grid-template-columns: 1fr 46px; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line); background: #fff; }
+    .ec-input { border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px; font-size: 14px; font-family: var(--font-body); outline: none; }
+    .ec-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(32,184,165,.18); }
+    .ec-send { border: 0; border-radius: 10px; background: linear-gradient(135deg, #20b8a5, #0f3f44); color: #fff; cursor: pointer; display: grid; place-items: center; }
+    .ec-send .icon { width: 18px; height: 18px; }
+    .ec-note { text-align: center; font-size: 11px; color: var(--muted); padding: 8px; background: #fff; }
+    @media (max-width: 560px) { .ec-panel { width: calc(100vw - 24px); } .ec-body { height: 46vh; } }
+    @media (prefers-reduced-motion: reduce) { .ec-fab::after, .ec-live, .ec-typing i, .ec-msg { animation: none !important; } }
+
   </style>
   <script type="application/ld+json">
     {
@@ -1583,7 +1646,7 @@
         <p>Expliquez votre contexte, le volume de dossiers, votre besoin en sous-traitance ou votre objectif de formation. Vous recevrez une recommandation claire.</p>
         <div class="cta-actions">
           <a class="btn btn-accent" href="mailto:contact@easyconseil-expert.fr?subject=Diagnostic%20EasyConseil%20Expert"><i data-lucide="mail" class="icon"></i>Envoyer un email</a>
-          <a class="btn" href="tel:+33000000000"><i data-lucide="phone" class="icon"></i>Appeler</a>
+          <a class="btn" href="tel:+33698840149"><i data-lucide="phone" class="icon"></i>Appeler</a>
         </div>
       </div>
       <form class="contact-form" aria-label="Formulaire de contact">
@@ -1598,37 +1661,26 @@
     </section>
   </main>
 
-  <aside class="whatsapp-widget" aria-label="Chatbot WhatsApp de capture lead">
-    <div class="whatsapp-panel" role="dialog" aria-label="Assistant WhatsApp EasyConseil Expert">
-      <div class="chat-head">
-        <span class="chat-avatar"><i data-lucide="message-circle" class="icon"></i></span>
-        <div>
+  <aside class="ec-agent" aria-label="Assistant EasyConseil">
+    <div class="ec-panel" role="dialog" aria-label="Assistant EasyConseil Expert">
+      <div class="ec-head">
+        <span class="ec-avatar"><i data-lucide="bot" class="icon"></i></span>
+        <div class="ec-head-txt">
           <strong>Assistant EasyConseil</strong>
-          <span>Qualification rapide avant CRM</span>
+          <span class="ec-status"><span class="ec-live"></span>En ligne &middot; repond en 2 min</span>
         </div>
-        <button class="chat-close" type="button" aria-label="Fermer le chatbot"><i data-lucide="x" class="icon"></i></button>
+        <button class="ec-close" type="button" aria-label="Fermer"><i data-lucide="x" class="icon"></i></button>
       </div>
-      <div class="chat-body">
-        <div class="chat-message">Bonjour. Je peux qualifier votre besoin et preparer le lead pour WhatsApp puis votre CRM.</div>
-        <form class="lead-form">
-          <label class="lead-label" for="lead-name">Nom / cabinet</label>
-          <input id="lead-name" name="leadName" type="text" placeholder="Cabinet ou societe" aria-label="Nom ou cabinet">
-          <label class="lead-label" for="lead-phone">Telephone WhatsApp</label>
-          <input id="lead-phone" name="leadPhone" type="tel" placeholder="+33..." aria-label="Telephone WhatsApp">
-          <label class="lead-label" for="lead-need">Besoin</label>
-          <select id="lead-need" name="leadNeed" aria-label="Besoin">
-            <option value="Sous-traitance comptable">Sous-traitance comptable</option>
-            <option value="Formation comptabilite francaise 5 jours">Formation comptabilite francaise - 5 jours</option>
-            <option value="Formation Pennylane 5 jours">Formation Pennylane - 5 jours</option>
-            <option value="Parcours combine">Parcours combine</option>
-          </select>
-          <button class="btn btn-primary" type="submit"><i data-lucide="send" class="icon"></i>Envoyer sur WhatsApp</button>
-          <div class="lead-status" role="status" aria-live="polite"></div>
-        </form>
+      <div class="ec-body" aria-live="polite"></div>
+      <div class="ec-input-row" hidden>
+        <input class="ec-input" type="text" aria-label="Votre reponse" autocomplete="off">
+        <button class="ec-send" type="button" aria-label="Envoyer"><i data-lucide="send" class="icon"></i></button>
       </div>
+      <div class="ec-note">Qualification en 2 min &middot; sans engagement</div>
     </div>
-    <button class="whatsapp-toggle" type="button" aria-label="Ouvrir le chatbot WhatsApp" aria-expanded="false">
-      <i data-lucide="message-circle" class="icon"></i>
+    <button class="ec-fab" type="button" aria-label="Ouvrir l'assistant" aria-expanded="false">
+      <i data-lucide="message-circle" class="icon ec-fab-ico"></i>
+      <span class="ec-fab-badge">1</span>
     </button>
   </aside>
 
@@ -1737,76 +1789,142 @@
       window.location.href = `mailto:contact@easyconseil-expert.fr?subject=${subject}&body=${body}`;
     });
 
-    const whatsappWidget = document.querySelector(".whatsapp-widget");
-    const whatsappToggle = document.querySelector(".whatsapp-toggle");
-    const chatClose = document.querySelector(".chat-close");
-    const leadForm = document.querySelector(".lead-form");
-    const leadStatus = document.querySelector(".lead-status");
-    const heroChatForm = document.querySelector(".hero-chat-form");
-    const heroChatInput = document.querySelector(".hero-chat-input");
-    const whatsappBusinessNumber = "33000000000";
+    /* ===== Agent conversationnel EasyConseil ===== */
+    (function () {
+      const BUSINESS_NUMBER = "33698840149";
+      const agent = document.querySelector(".ec-agent");
+      const fab = document.querySelector(".ec-fab");
+      const closeBtn = document.querySelector(".ec-close");
+      const body = document.querySelector(".ec-body");
+      const inputRow = document.querySelector(".ec-input-row");
+      const input = document.querySelector(".ec-input");
+      const sendBtn = document.querySelector(".ec-send");
+      if (!agent) return;
 
-    function setChatOpen(open) {
-      whatsappWidget.classList.toggle("is-open", open);
-      whatsappToggle.setAttribute("aria-expanded", String(open));
-    }
+      const lead = { need: "", name: "", phone: "" };
+      let started = false, onSubmit = null;
 
-    whatsappToggle.addEventListener("click", () => {
-      setChatOpen(!whatsappWidget.classList.contains("is-open"));
-    });
+      const scroll = () => { body.scrollTop = body.scrollHeight; };
+      function bubble(text, who) {
+        const el = document.createElement("div");
+        el.className = "ec-msg " + who;
+        el.textContent = text;
+        body.appendChild(el); scroll(); return el;
+      }
+      function typing() {
+        const el = document.createElement("div");
+        el.className = "ec-typing";
+        el.innerHTML = "<i></i><i></i><i></i>";
+        body.appendChild(el); scroll(); return el;
+      }
+      function botSay(text, delay, after) {
+        const t = typing();
+        setTimeout(() => { t.remove(); bubble(text, "bot"); if (after) after(); }, delay || 800);
+      }
+      function showInput(type, placeholder, handler) {
+        input.type = type; input.value = ""; input.placeholder = placeholder || "Votre reponse...";
+        inputRow.hidden = false; onSubmit = handler;
+        setTimeout(() => input.focus(), 50);
+      }
+      function hideInput() { inputRow.hidden = true; onSubmit = null; }
+      function chips(options, pick) {
+        const wrap = document.createElement("div");
+        wrap.className = "ec-chips";
+        options.forEach((opt) => {
+          const b = document.createElement("button");
+          b.type = "button"; b.className = "ec-chip"; b.textContent = opt;
+          b.addEventListener("click", () => { wrap.remove(); pick(opt); });
+          wrap.appendChild(b);
+        });
+        body.appendChild(wrap); scroll();
+      }
 
-    chatClose.addEventListener("click", () => setChatOpen(false));
+      function askNeed() {
+        botSay("Quel est votre besoin principal ?", 700, () => {
+          chips(
+            ["Sous-traitance comptable", "Formation compta francaise", "Formation Pennylane", "Besoin mixte"],
+            (choice) => { bubble(choice, "me"); lead.need = choice; askName(); }
+          );
+        });
+      }
+      function askName() {
+        botSay("Parfait. A quel nom / cabinet dois-je preparer votre demande ?", 800, () => {
+          showInput("text", "Ex : Cabinet Martin", (v) => {
+            lead.name = v; bubble(v, "me"); hideInput(); askPhone();
+          });
+        });
+      }
+      function askPhone() {
+        botSay("Et votre numero WhatsApp pour le rappel ?", 800, () => {
+          showInput("tel", "+33 6 12 34 56 78", (v) => {
+            lead.phone = v; bubble(v, "me"); hideInput(); recap();
+          });
+        });
+      }
+      function recap() {
+        botSay("Merci ! Je transmets votre demande a un conseiller. Cliquez ci-dessous pour confirmer sur WhatsApp et recevoir une reponse immediate :", 900, () => {
+          const cta = document.createElement("button");
+          cta.type = "button"; cta.className = "ec-cta";
+          cta.innerHTML = "Confirmer sur WhatsApp";
+          cta.addEventListener("click", openWhatsApp);
+          body.appendChild(cta); scroll();
+        });
+      }
+      function openWhatsApp() {
+        const msg = encodeURIComponent(
+          "Bonjour EasyConseil Expert," +
+          "\nJe souhaite etre recontacte(e)." +
+          "\nBesoin: " + (lead.need || "(non precise)") +
+          "\nNom/cabinet: " + (lead.name || "") +
+          "\nTelephone: " + (lead.phone || "") +
+          "\nRef: easyconseil-expert"
+        );
+        window.open("https://wa.me/" + BUSINESS_NUMBER + "?text=" + msg, "_blank", "noopener,noreferrer");
+      }
 
-    async function sendLeadToCrm(lead) {
-      window.dispatchEvent(new CustomEvent("easyconseil:lead", { detail: lead }));
-      return { ok: true };
-    }
+      function start(presetNeed) {
+        if (started) {
+          if (presetNeed) { lead.need = presetNeed; }
+          return;
+        }
+        started = true;
+        bubble("Bonjour ! Je suis l'assistant EasyConseil Expert.", "bot");
+        if (presetNeed) {
+          lead.need = presetNeed;
+          botSay("Tres bien pour : " + presetNeed + ".", 700, askName);
+        } else {
+          botSay("Je qualifie votre besoin en moins de 2 minutes.", 700, askNeed);
+        }
+      }
+      function setOpen(open, presetNeed) {
+        agent.classList.toggle("is-open", open);
+        fab.setAttribute("aria-expanded", String(open));
+        if (open) start(presetNeed);
+      }
 
-    function openWhatsAppLead(lead) {
-      const message = encodeURIComponent(
-        `Bonjour EasyConseil Expert,\nJe souhaite etre recontacte.\nNom/cabinet: ${lead.name || ""}\nTelephone: ${lead.phone || ""}\nBesoin: ${lead.need || ""}`
-      );
-      window.open(`https://wa.me/${whatsappBusinessNumber}?text=${message}`, "_blank", "noopener,noreferrer");
-    }
-
-    document.querySelectorAll(".hero-choice").forEach((choice) => {
-      choice.addEventListener("click", () => {
-        heroChatInput.value = choice.dataset.heroNeed || choice.textContent.trim();
-        heroChatInput.focus();
+      fab.addEventListener("click", () => setOpen(!agent.classList.contains("is-open")));
+      closeBtn.addEventListener("click", () => setOpen(false));
+      sendBtn.addEventListener("click", () => {
+        const v = input.value.trim(); if (!v || !onSubmit) return; onSubmit(v);
       });
-    });
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") { e.preventDefault(); sendBtn.click(); }
+      });
 
-    heroChatForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const data = new FormData(heroChatForm);
-      const lead = {
-        name: "",
-        phone: "",
-        need: data.get("heroNeed") || "Diagnostic depuis le chatbot hero",
-        source: "hero-chatbot",
-        createdAt: new Date().toISOString()
-      };
-      await sendLeadToCrm(lead);
-      openWhatsAppLead(lead);
-    });
+      // Connecte le chatbot du hero a l'agent
+      document.querySelectorAll(".hero-choice").forEach((c) => {
+        c.addEventListener("click", () => setOpen(true, c.dataset.heroNeed || c.textContent.trim()));
+      });
+      const heroForm = document.querySelector(".hero-chat-form");
+      if (heroForm) {
+        heroForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const v = (new FormData(heroForm)).get("heroNeed") || "";
+          setOpen(true, v ? String(v) : "");
+        });
+      }
+    })();
 
-    leadForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const data = new FormData(leadForm);
-      const lead = {
-        name: data.get("leadName") || "",
-        phone: data.get("leadPhone") || "",
-        need: data.get("leadNeed") || "",
-        source: "whatsapp-widget",
-        createdAt: new Date().toISOString()
-      };
-
-      leadStatus.textContent = "Lead prepare pour le CRM...";
-      await sendLeadToCrm(lead);
-
-      leadStatus.textContent = "Ouverture de WhatsApp...";
-      openWhatsAppLead(lead);
-    });
 
     window.addEventListener("load", () => {
       if (window.lucide) window.lucide.createIcons();
